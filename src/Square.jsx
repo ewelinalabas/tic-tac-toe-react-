@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 export const Square = (props) => {
   return (
     <button 
       className="square" 
-      onClick={() => {props.handleClick('x', props.index)}}
+      onClick={() => {props.handleClick(props.index)}}
     >
       {props.value}
     </button>

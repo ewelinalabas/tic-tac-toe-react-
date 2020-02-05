@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { Square } from './Square';
+import { checkForWinner } from './checkforwinner'
 
 export const Board = () => {
-  const generateInitialState = () => {
+  const generateBoardInitialState = () => {
     let initialState = {}
     for(let i = 0; i < 3; i++) {
       for(let j = 0; j< 3; j++) {
@@ -12,15 +13,17 @@ export const Board = () => {
     return initialState
   };
 
-  const [squareValues, setSquareValues] = useState(generateInitialState());
+  const [squareValues, setSquareValues] = useState(generateBoardInitialState());
   const [xIsNext, setXIsNext] = useState(true);
+  const [winner, setWinner] = useState(null)
   const nextPlayer = 'Next player: '.concat(xIsNext ? 'X' : 'O');
 
-  const handleClick = (value, index) => {
+  const handleClick = (index) => {
     const squareValuesNew = {...squareValues}
     squareValuesNew[index] = xIsNext ? 'X' : 'O'
     setSquareValues(squareValuesNew)
     setXIsNext(!xIsNext)
+    setWinner(checkForWinner(squareValuesNew))
   };
 
   const generateSquares = (rowIndex) => {
@@ -52,6 +55,7 @@ export const Board = () => {
     <div>
       <div className="status">{nextPlayer}</div>
       {generateBoard()}
+      <div>The winner is: {winner}</div>
     </div>
   )
 };
