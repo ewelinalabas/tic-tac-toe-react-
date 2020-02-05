@@ -10,15 +10,18 @@ export const Board = () => {
       }
     }
     return initialState
-  }
-  const [squareValues, setSquareValues] = useState(generateInitialState())
-  const nextPlayer = 'Next player: X';
+  };
+
+  const [squareValues, setSquareValues] = useState(generateInitialState());
+  const [xIsNext, setXIsNext] = useState(true);
+  const nextPlayer = 'Next player: '.concat(xIsNext ? 'X' : 'O');
 
   const handleClick = (value, index) => {
     const squareValuesNew = {...squareValues}
-    squareValuesNew[index] = 'X'
+    squareValuesNew[index] = xIsNext ? 'X' : 'O'
     setSquareValues(squareValuesNew)
-  }
+    setXIsNext(!xIsNext)
+  };
 
   const generateSquares = (rowIndex) => {
     let squares = []
@@ -34,7 +37,7 @@ export const Board = () => {
       )
     }
     return squares
-  }
+  };
 
   const generateBoard = () => {
     let board = []
@@ -43,7 +46,7 @@ export const Board = () => {
       board.push(<div className="board-row" key={j}>{generateSquares(rowIndex)}</div>)
     }
     return board
-  }
+  };
 
   return(
     <div>
@@ -51,4 +54,4 @@ export const Board = () => {
       {generateBoard()}
     </div>
   )
-}
+};
