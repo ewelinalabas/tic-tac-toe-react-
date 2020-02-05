@@ -1,26 +1,46 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Square } from './Square';
 
 export const Board = () => {
+  const generateInitialState = () => {
+    let initialState = {}
+    for(let i = 0; i < 3; i++) {
+      for(let j = 0; j< 3; j++) {
+        return {...initialState, [i.toString() + j.toString()]: null}
+      }
+    }
+    return initialState
+  }
+  const [squareValues, setSquareValues] = useState(generateInitialState())
   const nextPlayer = 'Next player: X';
 
-  const generateRow = (props) => {
-    let row = []
+  const handleClick = (value, index) => {
+    const squareValuesNew = {...squareValues}
+    squareValuesNew[index] = 'X'
+    setSquareValues(squareValuesNew)
+  }
+
+  const generateSquares = (rowIndex) => {
+    let squares = []
     for(let i = 0; i < 3; i++) {
-      let colIndex = (i + 1).toString()
-      row.push(
+      let index = rowIndex + i.toString()
+      squares.push(
         <Square 
-          key={props.rowIndex + colIndex} 
+          key={index}
+          value={squareValues[index]}
+          index={index} 
+          handleClick={handleClick}
         />
       )
     }
-    return row
+    return squares
   }
+
   const generateBoard = () => {
     let board = []
     for(let j = 0; j < 3; j++) {
-      let rowIndex = (j + 1).toString()
-      board.push(<div className="board-row" key={rowIndex}>{generateRow(rowIndex)}</div>)
+      let rowIndex = j.toString()
+      board.push(<div className="board-row" key={j}>{generateSquares(rowIndex)}</div>)
     }
     return board
   }
@@ -31,5 +51,4 @@ export const Board = () => {
       {generateBoard()}
     </div>
   )
-
 }
