@@ -30,9 +30,8 @@ export const Board = (props) => {
 
   return(
     <div>
-      <div className="status">{props.nextPlayer}</div>
       {generateBoard()}
-      <div>The winner is:{props.winner}</div>
+      
     </div>
   )
 };

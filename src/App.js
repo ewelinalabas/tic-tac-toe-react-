@@ -18,7 +18,7 @@ export const App = () => {
   const [winner, setWinner] = useState(null)
   const [stepNumber, setStepNumber] = useState(0)
   const [history, setHistory] = useState([generateBoardInitialState()])
-  const nextPlayer = 'Next player: '.concat(xIsNext ? 'X' : 'O');
+  const nextPlayer = xIsNext ? 'X' : 'O';
 
   const handleClick = (index) => {
     const squareValuesNew = {...history[stepNumber]}
@@ -44,20 +44,27 @@ export const App = () => {
       )
   })
 
+  const message = (nextPlayer, winner) => {
+    if(winner) {
+      return <p>{winner + " won!"}</p>
+    } else {
+      return <p>{'Next player is: ' + nextPlayer}</p>
+    }
+  }
+
   return (
     <div className="game">
       <div>
+        {message(nextPlayer, winner)}
         <Board 
           squareValues={history[stepNumber]}
-          nextPlayer={nextPlayer}
-          winner={winner}
           handleClick={handleClick}
         />
+      </div>
         <div className="game-info">
-          <div>{/* status */}</div>
+          <p>List of moves</p>
           <ol>{moves}</ol>
         </div>
-      </div>
     </div>
   );
 }
