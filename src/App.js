@@ -21,11 +21,12 @@ export const App = () => {
   const nextPlayer = 'Next player: '.concat(xIsNext ? 'X' : 'O');
 
   const handleClick = (index) => {
-    const squareValuesNew = {...history[history.length - 1]}
+    const squareValuesNew = {...history[stepNumber]}
     squareValuesNew[index] = xIsNext ? 'X' : 'O'
-    setHistory([...history, squareValuesNew])
+    setStepNumber(stepNumber + 1)
+    const newHistory = history.slice(0, stepNumber + 1).concat(squareValuesNew)
+    setHistory(newHistory)
     setXIsNext(!xIsNext)
-    setStepNumber(history.length)
     setWinner(checkForWinner(squareValuesNew))
   };
 
@@ -36,13 +37,11 @@ export const App = () => {
 
   const moves = history.map((el, i) => {
     const description = i ? 'Go to move ' + i : 'Go to beginning'
-    if(history.length > 1) {
       return (
         <li>
           <button key={i} onClick={() => jumpTo(i)}>{description}</button>
         </li>
       )
-    }
   })
 
   return (
