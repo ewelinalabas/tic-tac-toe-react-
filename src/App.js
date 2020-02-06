@@ -49,13 +49,25 @@ export const App = () => {
   }
 
   const moves = history.map((el, i) => {
-    const description = i ? 'Go to move ' + i : 'Go to beginning'
-      return (
-        <li key={i}>
-          <button key={i} onClick={() => jumpTo(i)}>{description}</button>
-        </li>
-      )
+    const description = i ? 'Move ' + i : 'Beginning'
+    return (
+      <li key={i}>
+        <button
+          key={i}
+          onClick={() => jumpTo(i)}
+        >
+          {description}
+        </button>
+      </li>
+    )
   })
+
+  // fix sorting
+  // const handleSort = (list) => {
+  //   console.log(list)
+  //   console.log(list.reverse())
+  //   return list.reverse()
+  // }
 
   const createMessage = (nextPlayer, winner) => {
     if(winner) {
@@ -66,9 +78,9 @@ export const App = () => {
   }
   const message = createMessage(nextPlayer, winner)
 
-  const decoratedCoordinates = coordinates.map(el => {
+  const decoratedCoordinates = coordinates.map((el, i) => {
     return (
-      <tr>
+      <tr key={i}>
         <td>{el.value}</td>
         <td>{el.row}</td>
         <td>{el.col}</td>
@@ -87,11 +99,12 @@ export const App = () => {
         />
       </div>
         <div className="game-info">
-          <p>History of moves</p>
+          <p>Go to:</p>
+          {/* <button onClick={() => handleSort(moves)}>Sort</button> */}
           <ol>{moves}</ol>
         </div>
         <div className="game-info">
-          <p>Coordinates of moves</p>
+          <p>History of moves</p>
           <table>
             <thead>
               <tr>

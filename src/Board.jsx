@@ -31,7 +31,6 @@ export const Board = (props) => {
   return(
     <div>
       {generateBoard()}
-      
     </div>
   )
 };
