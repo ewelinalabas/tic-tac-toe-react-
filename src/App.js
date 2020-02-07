@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 import { Board } from './Board';
 import { checkForWinner } from './checkforwinner';
@@ -27,6 +27,7 @@ export const App = () => {
   const [stepNumber, setStepNumber] = useState(0)
   const [history, setHistory] = useState([generateBoardInitialState()])
   const [coordinates, setCoordinates] = useState([])
+  const [sortAsc, setSortAsc] = useState(true)
   const nextPlayer = xIsNext ? 'X' : 'O';
 
   const handleClick = (index) => {
@@ -48,26 +49,23 @@ export const App = () => {
     setCoordinates(prepareCoordinates(coordinates, 'Go to move ' + step, ['-', '-']))
   }
 
-  const moves = history.map((el, i) => {
-    const description = i ? 'Move ' + i : 'Beginning'
-    return (
-      <li key={i}>
-        <button
-          key={i}
-          onClick={() => jumpTo(i)}
-        >
-          {description}
-        </button>
-      </li>
-    )
-  })
-
-  // fix sorting
-  // const handleSort = (list) => {
-  //   console.log(list)
-  //   console.log(list.reverse())
-  //   return list.reverse()
-  // }
+  const generateMoves = (ascending, h) => {
+    const moves = h.map((el, i) => {
+      const description = i ? 'Move ' + i : 'Beginning'
+      return (
+        <li key={i}>
+          <button
+            key={i}
+            onClick={() => jumpTo(i)}
+          >
+            {description}
+          </button>
+        </li>
+      )
+    })
+    return ascending ? moves : moves.reverse()
+  }
+  const moves = generateMoves(sortAsc, history)
 
   const createMessage = (nextPlayer, winner) => {
     if(winner) {
@@ -100,7 +98,7 @@ export const App = () => {
       </div>
         <div className="game-info">
           <p>Go to:</p>
-          {/* <button onClick={() => handleSort(moves)}>Sort</button> */}
+          <button onClick={() => setSortAsc(!sortAsc)}>Sort</button>
           <ol>{moves}</ol>
         </div>
         <div className="game-info">
