@@ -5,18 +5,22 @@ export const checkForWinner = (values) => {
         'X': 0,
         'O': 0
       }
+      let coordinatesX = []
+      let coordinatesO = []
       for(let j = 0; j < 3; j++) {
         let index = i.toString() + j.toString()
         if(values[index] === 'X') {
           points['X'] += 1
+          coordinatesX.concat(index)
         } else if(values[index] === 'O') {
           points['O'] += 1
+          coordinatesO.concat(index)
         }
       }
       if(points['X'] === 3) {
-        return 'X';
+        return {'X': coordinatesX};
       } else if(points['O'] === 3) {
-        return 'O'
+        return {'O': coordinatesO}
       }
     }
   }
@@ -26,18 +30,22 @@ export const checkForWinner = (values) => {
         'X': 0,
         'O': 0
       }
+      let coordinatesX = []
+      let coordinatesO = []
       for(let j = 0; j < 3; j++) {
         let index = j.toString() + i.toString()
         if(values[index] === 'X') {
           points['X'] += 1
+          coordinatesX.concat(index)
         } else if(values[index] === 'O') {
           points['O'] += 1
+          coordinatesO.concat(index)
         }
       }
       if(points['X'] === 3) {
-        return 'X';
+        return {'X': coordinatesX};
       } else if(points['O'] === 3) {
-        return 'O'
+        return {'O': coordinatesO}
       }
     }
   }
@@ -48,16 +56,20 @@ export const checkForWinner = (values) => {
         'X': 0,
         'O': 0
       }
+      let coordinatesX = []
+      let coordinatesO = []
       for(let j = 0; j < 3; j++) {
         if(values[diagonals[i][j]] === 'X') {
           points['X'] += 1
+          coordinatesX.concat(diagonals[i][j])
         } else if(values[diagonals[i][j]] === 'O') {
           points['O'] += 1
+          coordinatesO.concat(diagonals[i][j])
         }
         if(points['X'] === 3) {
-          return 'X';
+          return {'X': coordinatesX};
         } else if(points['O'] === 3) {
-          return 'O'
+          return {'O': coordinatesO}
         }
       }
     }
@@ -73,5 +85,7 @@ export const checkForWinner = (values) => {
     return col
   } else if(diag) {
     return diag
+  } else {
+    return {null: []}
   }
 }

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState} from 'react';
 import './App.css';
 import { Board } from './Board';
 import { checkForWinner } from './checkforwinner';
@@ -40,7 +40,8 @@ export const App = () => {
       .concat(squareValuesNew)
     setHistory(newHistory)
     setXIsNext(!xIsNext)
-    setWinner(checkForWinner(squareValuesNew))
+    const isWinner = Object.keys(checkForWinner(squareValuesNew))
+    if(isWinner != 'null') return setWinner(isWinner)
   };
 
   const jumpTo = (step) => {
@@ -68,7 +69,7 @@ export const App = () => {
   const moves = generateMoves(sortAsc, history)
 
   const createMessage = (nextPlayer, winner) => {
-    if(winner) {
+    if(winner != null) {
       return <p>{winner + " won!"}</p>
     } else {
       return <p>{'Next player is: ' + nextPlayer}</p>
@@ -85,7 +86,6 @@ export const App = () => {
       </tr>
     )
   })
-      
 
   return (
     <div className="game">
