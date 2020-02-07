@@ -22,6 +22,14 @@ export const App = () => {
     })
   }
 
+  const validateWinner = (values) => {
+    const result = checkForWinner(values)
+    const winnerMark = Object.keys(result)
+    if(winnerMark != null) {
+      setWinner(winnerMark)
+    }
+  }
+
   const [xIsNext, setXIsNext] = useState(true);
   const [winner, setWinner] = useState(null)
   const [stepNumber, setStepNumber] = useState(0)
@@ -40,8 +48,7 @@ export const App = () => {
       .concat(squareValuesNew)
     setHistory(newHistory)
     setXIsNext(!xIsNext)
-    const isWinner = Object.keys(checkForWinner(squareValuesNew))
-    if(isWinner != 'null') return setWinner(isWinner)
+    validateWinner(squareValuesNew)
   };
 
   const jumpTo = (step) => {
