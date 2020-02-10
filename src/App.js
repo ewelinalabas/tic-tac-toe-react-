@@ -24,8 +24,8 @@ export const App = () => {
 
   const validateWinner = (values) => {
     const result = checkForWinner(values)
-    const winnerMark = Object.keys(result)
-    if(winnerMark != "null") {
+    const winnerMark = Object.keys(result)[0]
+    if(winnerMark === 'X' || winnerMark === 'O') {
       setWinner(winnerMark)
       setWinningFields(result[winnerMark])
       setCoordinates(prepareCoordinates(coordinates, 'Winner: ' + winnerMark, ['-', '-']))
