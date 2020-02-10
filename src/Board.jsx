@@ -7,7 +7,7 @@ export const Board = (props) => {
     let squares = []
     for(let i = 0; i < 3; i++) {
       let index = rowIndex + i.toString()
-      let winning = props.winningSquares.filter(el => el == index).length == 1 ? true : false
+      let winning = props.winningSquares.filter(el => el === index).length === 1 ? true : false
       squares.push(
         <Square 
           key={index}

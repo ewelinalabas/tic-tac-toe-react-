@@ -28,6 +28,7 @@ export const App = () => {
     if(winnerMark != "null") {
       setWinner(winnerMark)
       setWinningFields(result[winnerMark])
+      setCoordinates(prepareCoordinates(coordinates, 'Winner: ' + winnerMark, ['-', '-']))
     }
   }
 
@@ -41,22 +42,26 @@ export const App = () => {
   const nextPlayer = xIsNext ? 'X' : 'O';
 
   const handleClick = (index) => {
-    const squareValuesNew = {...history[stepNumber]}
-    squareValuesNew[index] = xIsNext ? 'X' : 'O'
-    setCoordinates(prepareCoordinates(coordinates, squareValuesNew[index], index))
-    setStepNumber(stepNumber + 1)
-    const newHistory = history
-      .slice(0, stepNumber + 1)
-      .concat(squareValuesNew)
-    setHistory(newHistory)
-    setXIsNext(!xIsNext)
-    validateWinner(squareValuesNew)
+    if(winner === null) {
+      const squareValuesNew = {...history[stepNumber]}
+      squareValuesNew[index] = xIsNext ? 'X' : 'O'
+      setCoordinates(prepareCoordinates(coordinates, squareValuesNew[index], index))
+      setStepNumber(stepNumber + 1)
+      const newHistory = history
+        .slice(0, stepNumber + 1)
+        .concat(squareValuesNew)
+      setHistory(newHistory)
+      setXIsNext(!xIsNext)
+      validateWinner(squareValuesNew)
+    } else {}
   };
 
   const jumpTo = (step) => {
     setStepNumber(step)
     setXIsNext((step % 2 === 0))
     setCoordinates(prepareCoordinates(coordinates, 'Go to move ' + step, ['-', '-']))
+    setWinner(null)
+    setWinningFields([])
   }
 
   const generateMoves = (ascending, h) => {
