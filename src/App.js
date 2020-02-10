@@ -42,8 +42,8 @@ export const App = () => {
   const nextPlayer = xIsNext ? 'X' : 'O';
 
   const handleClick = (index) => {
-    if(winner === null) {
-      const squareValuesNew = {...history[stepNumber]}
+    const squareValuesNew = {...history[stepNumber]}
+    if(winner === null && squareValuesNew[index] == null) {
       squareValuesNew[index] = xIsNext ? 'X' : 'O'
       setCoordinates(prepareCoordinates(coordinates, squareValuesNew[index], index))
       setStepNumber(stepNumber + 1)
