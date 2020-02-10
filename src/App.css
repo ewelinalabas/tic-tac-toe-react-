@@ -35,6 +35,10 @@ body {
   outline: none;
 }
 
+.square-win {
+  border: 2px solid rgb(182, 58, 58);
+}
+
 .status {
   margin-bottom: 10px;
 }

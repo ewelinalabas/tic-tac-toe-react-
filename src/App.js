@@ -25,13 +25,15 @@ export const App = () => {
   const validateWinner = (values) => {
     const result = checkForWinner(values)
     const winnerMark = Object.keys(result)
-    if(winnerMark != null) {
+    if(winnerMark != "null") {
       setWinner(winnerMark)
+      setWinningFields(result[winnerMark])
     }
   }
 
   const [xIsNext, setXIsNext] = useState(true);
   const [winner, setWinner] = useState(null)
+  const [winningFields, setWinningFields] = useState([])
   const [stepNumber, setStepNumber] = useState(0)
   const [history, setHistory] = useState([generateBoardInitialState()])
   const [coordinates, setCoordinates] = useState([])
@@ -100,6 +102,7 @@ export const App = () => {
         {message}
         <Board 
           squareValues={history[stepNumber]}
+          winningSquares={winningFields}
           handleClick={handleClick}
         />
       </div>

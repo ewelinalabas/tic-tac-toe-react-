@@ -11,10 +11,10 @@ export const checkForWinner = (values) => {
         let index = i.toString() + j.toString()
         if(values[index] === 'X') {
           points['X'] += 1
-          coordinatesX.concat(index)
+          coordinatesX.push(index)
         } else if(values[index] === 'O') {
           points['O'] += 1
-          coordinatesO.concat(index)
+          coordinatesO.push(index)
         }
       }
       if(points['X'] === 3) {
@@ -36,10 +36,10 @@ export const checkForWinner = (values) => {
         let index = j.toString() + i.toString()
         if(values[index] === 'X') {
           points['X'] += 1
-          coordinatesX.concat(index)
+          coordinatesX.push(index)
         } else if(values[index] === 'O') {
           points['O'] += 1
-          coordinatesO.concat(index)
+          coordinatesO.push(index)
         }
       }
       if(points['X'] === 3) {
@@ -61,10 +61,10 @@ export const checkForWinner = (values) => {
       for(let j = 0; j < 3; j++) {
         if(values[diagonals[i][j]] === 'X') {
           points['X'] += 1
-          coordinatesX.concat(diagonals[i][j])
+          coordinatesX.push(diagonals[i][j])
         } else if(values[diagonals[i][j]] === 'O') {
           points['O'] += 1
-          coordinatesO.concat(diagonals[i][j])
+          coordinatesO.push(diagonals[i][j])
         }
         if(points['X'] === 3) {
           return {'X': coordinatesX};
